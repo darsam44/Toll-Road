@@ -3,6 +3,7 @@
 const uuid = require("uuid");
 const Kafka = require("node-rdkafka");
 const mongo = require('../mongodb/mongo');
+var redis = require('../Redis/RedisSender');
 
 const kafkaConf = {
   "group.id": "cloudkarafka-example",
@@ -39,6 +40,7 @@ consumer.on("ready", function(arg) {
 consumer.on("data", function(m) {
   console.log(m.value.toString());
   mongo.SendTomongodb(m.value.toString());
+  redis.ReciveData(m.value.toString());
 });
 consumer.on("disconnected", function(arg) {
   process.exit();
