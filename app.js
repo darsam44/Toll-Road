@@ -20,8 +20,11 @@ app.set('view engine', 'ejs');
 app.use(express.static("public"));
 
 app.get('/', (req, res) => res.send("<a href='/send'>Send</a> <br/><a href=''>View</a>"));
-app.get('/send', (req, res) => res.render('sender'));
-
+// app.get('/send', (req, res) => res.render('sender'));
+app.get('/dashboard', (req, res) => {
+    var cards=["Borrowed","Annual Profit","Lead Conversion","Average Income",];
+  res.render("./pages/index",{cards:cards});
+});
 
 //------------ Socket.io ----------------
 io.on("connection", (socket) => {
@@ -29,6 +32,7 @@ io.on("connection", (socket) => {
     // socket.on("totalWaitingCalls", (msg) => { console.log(msg.totalWaiting) });
     socket.on("callDetails", (msg) => { console.log(msg);kafka.publish(msg) });
 });
+
 
 
 //------------------- kafka -----------

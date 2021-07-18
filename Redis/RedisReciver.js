@@ -29,11 +29,13 @@ app.use(function(err, req, res, next) {
 
 redisClient.on("message", function (channel, data) {
     var data = JSON.parse(data);
-    // do things with the data
-    data.variable1 = 3;
-    data.variable2 = "hello";
-    console.log(data.message);
+    //console.log("hiiiiiiii");
+    console.log(data);
+
+    
 });
+
+
 
 redisClient.on('connect', function() {
     console.log('Reciver connected to Redis');

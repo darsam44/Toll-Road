@@ -3,7 +3,7 @@
 const uuid = require("uuid");
 const Kafka = require("node-rdkafka");
 const simu = require('../simu/simulator');
-
+//var redis = require('../Redis/RedisSender');
 
 const kafkaConf = {
   "group.id": "cloudkarafka-example",
@@ -31,6 +31,7 @@ producer.connect();
 module.exports.publish= function(msg)
 {   
   m=JSON.stringify(msg);
+  //redis.ReciveData(m.value.toString());
   producer.produce(topic, -1, genMessage(m), uuid.v4());  //Send to KAFKA
   //producer.disconnect();   
 }

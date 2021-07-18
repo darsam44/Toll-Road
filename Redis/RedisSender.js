@@ -4,9 +4,17 @@ var server = require('http').Server(app);
 var redis = require('redis');
 var redisClient = redis.createClient();
 var sub = redis.createClient()
-var cars;
+//var cars;
 module.exports.ReciveData = function(data){
-    cars = JSON.parse(data);
+    const cars = JSON.parse(data);
+
+    redisClient.sadd('Cars', cars ,function (err, object){
+        // console.log(cars);
+    });
+
+    redisClient.publish("message", JSON.stringify(cars), function () {
+        console.log('published');
+    });
 }
 // for explanations : https://www.sitepoint.com/using-redis-node-js/
 
@@ -19,10 +27,12 @@ app.get('/test', function (req, res) {
     });
 
     //Store and get Hash i.e. object( as keyvalue pairs)
-    redisClient.hmset('Cars',cars);
-    redisClient.hgetall('Cars', function (err, object) {
-        console.log(object);
-    });
+    // redisClient.hmset('Cars',cars);
+    // redisClient.hgetall('Cars', function (err, object) {
+    //     console.log(object);
+    // });
+
+   
     /*
     also ok:
     redisClient.hmset('Sections', {
@@ -42,8 +52,7 @@ client.lrange('frameworks', 0, -1, function(err, reply) {
     console.log(reply); // ['angularjs', 'backbone']
 }); */
 
-    redisClient.publish("message", "{\"message\":\"Hello from Redis\"}", function () {
-    });
+    
 
     res.send('תקשרתי עם רדיס....')
 });

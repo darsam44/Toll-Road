@@ -39,8 +39,9 @@ consumer.on("ready", function(arg) {
 
 consumer.on("data", function(m) {
   console.log(m.value.toString());
-  mongo.SendTomongodb(m.value.toString());
+  //mongo.SendTomongodb(m.value.toString());
   redis.ReciveData(m.value.toString());
+  
 });
 consumer.on("disconnected", function(arg) {
   process.exit();
