@@ -2,8 +2,13 @@
 
 const uuid = require("uuid");
 const Kafka = require("node-rdkafka");
-const mongo = require('../mongodb/mongo');
-var redis = require('../Redis/RedisSender');
+// const mongodb = require('mongodb');
+const mongos = require('../mongodb/mongo');
+// const mongoC = require('../mongodb/mongo').ConnectTodb;
+// const SendToDb = require('../mongodb/mongo').SendToDb;
+// const getDb = require('../mongodb/mongo').getDb;
+
+// var redis = require('../Redis/RedisSender');
 
 const kafkaConf = {
   "group.id": "cloudkarafka-example",
@@ -39,10 +44,25 @@ consumer.on("ready", function(arg) {
 
 consumer.on("data", function(m) {
   console.log(m.value.toString());
-  //mongo.SendTomongodb(m.value.toString());
-  redis.ReciveData(m.value.toString());
+  mongos.ConnectTodb(m.value.toString() , 1);
+  // redis.ReciveData(m.value.toString());
   
 });
+
+// function save (data){
+//   const db = getDb();
+//   const car = JSON.parse(data);
+//   return db
+//     .collection('products')
+//     .insertOne(car)
+//     .then(result => {
+//       console.log(result);
+//     })
+//     .catch(err => {
+//       console.log(err);
+//     });
+// }
+
 consumer.on("disconnected", function(arg) {
   process.exit();
 });

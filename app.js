@@ -4,7 +4,9 @@ var server = require('http').createServer(app);
 const io = require("socket.io")(server)
 const port = 3000
 const simu = require('./simu/simulator');
-const mongo = require('./mongodb/mongo');
+const mongoConnect = require('./mongodb/mongo');
+const adminRoutes = require('./mongodb/mongofetch');
+// const mongoConnect = require('./util/database').mongoConnect;
 
 //------------ kafka------------
 const kafka = require('./Kafka/kafkaProduce');
@@ -25,6 +27,8 @@ app.get('/dashboard', (req, res) => {
     var cards=["Borrowed","Annual Profit","Lead Conversion","Average Income",];
   res.render("./pages/index",{cards:cards});
 });
+
+app.use('/fetch', adminRoutes.fetchAll);
 
 //------------ Socket.io ----------------
 io.on("connection", (socket) => {
@@ -47,7 +51,6 @@ io.on("connection", (socket) => {
 
 
 //------------------------------------
-
 
 server.listen(port, () => console.log(`Ariel app listening at http://localhost:${port}`));
 
