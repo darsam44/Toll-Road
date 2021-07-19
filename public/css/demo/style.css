@@ -15,7 +15,7 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  min-width: 64px;
+  min-width: 40px;
   height: 36px;
   border: none;
   outline: none;
@@ -3477,7 +3477,7 @@ svg.mdc-button__icon {
 
 @media (min-width: 992px) {
   .mdc-layout-grid__cell {
-    width: calc(33.33333% - 24px);
+    width: calc(33.33333% - 40px);
     width: calc(33.33333% - var(--mdc-layout-grid-gutter-desktop, 24px));
     box-sizing: border-box;
     margin: 12px;

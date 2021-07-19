@@ -3,7 +3,7 @@
 const uuid = require("uuid");
 const Kafka = require("node-rdkafka");
 const simu = require('../simu/simulator');
-//var redis = require('../Redis/RedisSender');
+var redis = require('../Redis/RedisSender');
 
 const kafkaConf = {
   "group.id": "cloudkarafka-example",
@@ -17,7 +17,20 @@ const kafkaConf = {
 };
 
 const prefix = "gh1qkygc-";
-const topic = `${prefix}test`; // send to this topic
+
+// const kafkaConf = {
+//   "group.id": "cloudkarafka-example",
+//   "metadata.broker.list": "glider-01.srvs.cloudkafka.com:9094,glider-02.srvs.cloudkafka.com:9094,glider-03.srvs.cloudkafka.com:9094".split(","),
+//   "socket.keepalive.enable": true,
+//   "security.protocol": "SASL_SSL",
+//   "sasl.mechanisms": "SCRAM-SHA-256",
+//   "sasl.username": "js9ty9ln",
+//   "sasl.password": "n3jmymvhIGE-uDgJRGei0rMEUz5yk9x6",
+//   "debug": "generic,broker,security"
+// };
+
+// const prefix = "gh1qkygc-";
+const topic = `${prefix}dar`; // send to this topic
 const producer = new Kafka.Producer(kafkaConf);
 
 const genMessage = m => new Buffer.alloc(m.length,m);

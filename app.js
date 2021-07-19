@@ -6,7 +6,8 @@ const port = 3000
 const simu = require('./simu/simulator');
 const mongoConnect = require('./mongodb/mongo');
 const adminRoutes = require('./mongodb/mongofetch');
-// const mongoConnect = require('./util/database').mongoConnect;
+const CarsRoutes = require('./routes/cards');
+const KafkaConsumer = require('./Kafka/kafkaConsume');
 
 //------------ kafka------------
 const kafka = require('./Kafka/kafkaProduce');
@@ -23,11 +24,9 @@ app.use(express.static("public"));
 
 app.get('/', (req, res) => res.send("<a href='/send'>Send</a> <br/><a href=''>View</a>"));
 // app.get('/send', (req, res) => res.render('sender'));
-app.get('/dashboard', (req, res) => {
-    var cards=["Borrowed","Annual Profit","Lead Conversion","Average Income",];
-  res.render("./pages/index",{cards:cards});
-});
+app.use(CarsRoutes);
 
+//{title:card.section},{Number_of_cars:card.Number_of_cars},{Precent_of_cars:card.Precent_of_cars}
 app.use('/fetch', adminRoutes.fetchAll);
 
 //------------ Socket.io ----------------
