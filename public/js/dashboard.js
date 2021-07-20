@@ -9,10 +9,10 @@
         var revenueChart = new Chart(revenueChartCanvas, {
             type: 'bar',
             data: {
-            labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+            labels: ['car', 'truck' , 'bus' , 'motorcycle'],
             datasets: [{
-                data: [105, 195, 290, 320, 400, 100, 290],
-                backgroundColor: ["rgba(255, 86, 48, 0.3)", "rgba(255, 86, 48, 0.3)", "rgba(255, 86, 48, 0.3)", "rgb(255, 86, 48)", "rgba(255, 86, 48, 0.3)", "rgba(255, 86, 48, 0.3)", "rgba(255, 86, 48, 0.3)"],
+                data: [10, 15,5,6],
+                backgroundColor: ["rgba(255, 86, 48, 0.3)", "rgba(255, 86, 48, 0.3)", "rgba(255, 86, 48, 0.3)", "rgb(255, 86, 48, 0.3)"],
                 }
             ]
             },
@@ -29,7 +29,7 @@
                 ticks: {
                     fontColor: '#bababa',
                     min:0,
-                    stepSize: 100,
+                    stepSize: 5,
                 }
                 }],
                 xAxes: [{

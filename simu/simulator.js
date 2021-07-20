@@ -5,7 +5,7 @@ const { all } = require("mathjs");
 module.exports.Simulator_cars = function (cb){
     
     let cars_now = [];
-    var brands = ['Audi', 'BMW', 'Nissan', 'Ford', 'Honda', 'Reno', 'Toyota', 'Lamborghini', 'Maserati']; 
+    var brands = ['Audi', 'BMW', 'Ford', 'Honda', 'Reno', 'Toyota', 'Lamborghini', 'Maserati']; 
     var colors = ['red', 'green', 'blue', 'white', 'black', 'yellow', 'pink'];
     var car_types = ['car', 'truck' , 'bus' , 'motorcycle'];
     
