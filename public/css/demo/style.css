@@ -16,7 +16,8 @@
   justify-content: center;
   box-sizing: border-box;
   min-width: 40px;
-  height: 36px;
+  height: 150px;
+  width: 400px;
   border: none;
   outline: none;
   /* @alternate */

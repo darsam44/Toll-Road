@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Refresh" content="5">
   <title>Material Dash</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="./vendors/mdi/css/materialdesignicons.min.css">
@@ -363,6 +364,14 @@
               <% all.cards.forEach(function(card) { %>
               <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3-desktop mdc-layout-grid__cell--span-4-tablet">
                 <%- include ('../partials/Cards.ejs',{car:card}) %>
+                <div class="mdc-menu mdc-menu-surface" tabindex="-1">
+                  <h6 class="title"> <i class="mdi mdi-bell-outline mr-2 tx-16"></i><%= card.section %> </h6>
+                  <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical">
+                    <li class="mdc-list-item" role="menuitem">
+                <%- include ('../partials/allcars.ejs',{all_sections:card}) %>
+              </li>
+            </ul>
+          </div>
               </div>
               <% }); %>
              
@@ -378,10 +387,6 @@
                   <div class="d-block d-sm-flex justify-content-between align-items-center">
                       <h5 class="card-sub-title mb-2 mb-sm-0">cars based by brands</h5>
                       <div class="menu-button-container">
-                        <button class="mdc-button mdc-menu-button mdc-button--raised button-box-shadow tx-12 text-dark bg-white font-weight-light">
-                            Last 7 days
-                          <i class="material-icons">arrow_drop_down</i>
-                        </button>
                         <div class="mdc-menu mdc-menu-surface" tabindex="-1">
                           <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical">
                             <li class="mdc-list-item" role="menuitem">

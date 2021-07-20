@@ -5,29 +5,31 @@ var connection = new bigml.BigML('AvitalPikovsky',
 
 var source = new bigml.Source(connection);
 
-source.create('./cars.csv', function(error, sourceInfo) {
-  if (!error && sourceInfo) {
-    var dataset = new bigml.Dataset(connection);
-    dataset.create(sourceInfo, function(error, datasetInfo) {
-      if (!error && datasetInfo) {
-        var model = new bigml.Model(connection);
-        model.get('model/60f409c95e269e0554013c3d', function (error, modelInfo) {
-          if (!error && modelInfo) {
-            var prediction = new bigml.BatchPrediction(connection);
-            prediction.create(modelInfo, datasetInfo, 0, 0, async function(error, predictionS){
-                if(error) throw error;
-                var done = false;
-                while(!done) {
-                    prediction.get(predictionS.modelInfo, function (error, pred){
-                        if(error) throw error;
-                        if(pred.object.status.code == 5)
-                        done = true;
-                    });
-                }
-            });
-          }
-        });
-      }
-    });
-  }
-});
+// source.create('./bigML/cars.csv', function(error, sourceInfo) {
+//     if (!error && sourceInfo) {
+//       var dataset = new bigml.Dataset(connection);
+//       dataset.create(sourceInfo, function(error, datasetInfo) {
+//         if (!error && datasetInfo) {
+//           var model = new bigml.Model(connection);
+//           model.create(datasetInfo, function (error, modelInfo) {
+//             if (!error && modelInfo) {
+//               var prediction = new bigml.Prediction(connection);
+//               prediction.create(modelInfo,{"in_section":1})
+        
+//               const localmodel = new bigml.LocalModel(prediction.resource, connection );
+//               localmodel.predict({"car_type":"truck"}, function(error,prediction){
+//                   console.log(prediction.prediction)
+//               })
+//             }
+//           });
+//         }
+//       });
+//     }
+//   });
+  const localModel = new bigml.LocalModel('model/60f6edb2c1c0000b900d5a99', connection);
+                        localModel.predict({"car_type":"car", "color":"pink"},
+                            function(error, prediction) {
+                                // let pred = JSON.parse(prediction);
+                                // console.log("here: "+ pred)
+                                console.log("the prediction is: " + prediction.prediction)
+                            });

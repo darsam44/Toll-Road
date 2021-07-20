@@ -10,6 +10,11 @@ var allMap  = new Map();
 var car_number =0;
 var section1=0 , section2=0, section3=0, section4=0, section5=0; 
 var Audi=0,BMW=0,Ford=0,Honda=0,Reno=0,Toyota=0,Lamborghini=0,Maserati=0;
+var car_section1 = [];
+var car_section2 = [];
+var car_section3 = [];
+var car_section4 = [];
+var car_section5 = [];
 
 redisClient.subscribe('message'); 
 
@@ -58,15 +63,25 @@ redisClient.on("message", function (channel, data) {
 });
 
 exports.getcars = (req, res, next) => {
-    
     countSections();
     sumBrand();
+    checksections();
     changenow();
-     
+
     var Allsections = section1+ section2+ section3+section4+section5;
     var AllBrands = Audi+ BMW+Ford+Honda+Reno+Toyota+Lamborghini+Maserati;
-    
-    var brands=[
+    // console.log("car_section1")
+    // console.log(car_section1);
+    // console.log("car_section2")
+    // console.log(car_section2);
+    // console.log("car_section3")
+    // console.log(car_section3);
+    // console.log("car_section4")
+    // console.log(car_section4);
+    // console.log("car_section5")
+    // console.log(car_section5);
+
+    const brands=[
         {brand_name: 'Audi', Number_of_cars: Audi , Precent_of_cars: (Audi/AllBrands)*100 },
         {brand_name: 'BMW', Number_of_cars: BMW , Precent_of_cars: (BMW/AllBrands)*100 },
         {brand_name: 'Ford', Number_of_cars: Ford , Precent_of_cars: (Ford/AllBrands)*100 },
@@ -75,19 +90,48 @@ exports.getcars = (req, res, next) => {
         {brand_name: 'Toyota', Number_of_cars: Toyota , Precent_of_cars: (Toyota/AllBrands)*100 },
         {brand_name: 'Lamborghini', Number_of_cars: Lamborghini , Precent_of_cars: (Lamborghini/AllBrands)*100 },
         {brand_name: 'Maserati', Number_of_cars: Maserati , Precent_of_cars: (Maserati/AllBrands)*100 }];
-    var cards=[
-        {section: "section 1", Number_of_cars: section1 , Precent_of_cars: (section1/Allsections)*100 },
-        {section: "section 2", Number_of_cars: section2 , Precent_of_cars: (section2/Allsections)*100 },
-        {section: "section 3", Number_of_cars: section3 , Precent_of_cars: (section3/Allsections)*100 },
-        {section: "section 4", Number_of_cars: section4 , Precent_of_cars: (section4/Allsections)*100 },
-        {section: "section 5", Number_of_cars: section5 , Precent_of_cars: (section5/Allsections)*100 }];
-        let all = {cards , brands};
-        res.render('./pages/index',{all: all} );
-    // ,brands:brands
+    const cards=[
+        {section: "section 1", Number_of_cars: section1 ,  Precent_of_cars: (section1/Allsections)*100 , car_section:car_section1 },
+        {section: "section 2", Number_of_cars: section2 , Precent_of_cars: (section2/Allsections)*100 , car_section:car_section2},
+        {section: "section 3", Number_of_cars: section3 , Precent_of_cars: (section3/Allsections)*100 , car_section:car_section3},
+        {section: "section 4", Number_of_cars: section4 ,Precent_of_cars: (section4/Allsections)*100 , car_section:car_section4},
+        {section: "section 5", Number_of_cars: section5 , Precent_of_cars: (section5/Allsections)*100 , car_section:car_section5}];
+  
+        res.render('./pages/index',{all: {cards , brands}} );
 };
 
-function changenow(){
+function checksections(){
+car_section1 = [];
+car_section2 = [];
+car_section3 = [];
+car_section4 = [];
+car_section5 = [];
+
     allMap.forEach(car => {
+        var sec = car.get("now_section");
+        var brand = car.get("brand");
+        var color = car.get("color");
+        var type = car.get("car_type");
+        if (sec == 1) {
+            
+            car_section1.push({brand: brand , color:color , type:type});
+        }
+        else if(sec == 2){
+            car_section2.push({brand: brand , color:color , type:type});
+        }
+        else if(sec == 3){
+            car_section3.push({brand: brand , color:color , type:type});
+        }
+        else if(sec == 4){
+            car_section4.push({brand: brand , color:color , type:type});
+        }
+        else {
+            car_section5.push({brand: brand , color:color , type:type});
+        }
+    });
+}
+function changenow(){
+    allMap.forEach((car,key) => {
         var now_sec = car.get("now_section");
         var out_sec = car.get("out_section");
         if (now_sec < out_sec){
@@ -99,7 +143,7 @@ function changenow(){
            car.set("now_section" , now_sec);
         }
         else {
-            allMap.delete(car);
+            allMap.delete(key);
         }
     });
 }

@@ -37,7 +37,8 @@ const genMessage = m => new Buffer.alloc(m.length,m);
 
 producer.on("ready", function(arg) {
   console.log(`producer Ariel is ready.`);
-  simu.Simulator_cars(publish2);
+  // simu.Simulator_cars(publish2);
+  simu.simularloop(publish2);
 });
 producer.connect();
 //publish is a name can be any name...

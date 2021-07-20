@@ -2,14 +2,18 @@ const { all } = require("mathjs");
 
 
 
-module.exports.Simulator_cars = function (cb){
-    
-    let cars_now = [];
-    var brands = ['Audi', 'BMW', 'Ford', 'Honda', 'Reno', 'Toyota', 'Lamborghini', 'Maserati']; 
-    var colors = ['red', 'green', 'blue', 'white', 'black', 'yellow', 'pink'];
-    var car_types = ['car', 'truck' , 'bus' , 'motorcycle'];
-    
-    // while ( cars_now.length < 50 ){
+let cars_now = [];
+var brands = ['Audi', 'BMW', 'Ford', 'Honda', 'Reno', 'Toyota', 'Lamborghini', 'Maserati']; 
+var colors = ['red', 'green', 'blue', 'white', 'black', 'yellow', 'pink'];
+var car_types = ['car', 'truck' , 'bus' , 'motorcycle'];
+var probabilities = [0.7, 0.1, 0.1, 0.1];
+
+module.exports.simularloop = function(cb){
+    setInterval(function(){ Simulator_cars(cb)},10000)
+}
+
+function Simulator_cars(cb){
+
     for(var j = 0 ; j < 10 ; j++){
     
         var car_detail = {};
@@ -18,11 +22,9 @@ module.exports.Simulator_cars = function (cb){
         //color
         car_detail.color = colors[(Math.random() * colors.length) | 0];
         //car type
-        car_detail.car_type = car_types[(Math.random() * car_types.length) | 0];
+        car_detail.car_type = getRandomType();
         car_detail.in_section = Math.floor(Math.random() * 5) + 1;
-        do{
-            car_detail.out_section = Math.floor(Math.random() * 5) + 1;
-        }while (car_detail.out_section == car_detail.in_section)
+        
 
         car_detail.now_section = car_detail.in_section;
 
@@ -43,6 +45,10 @@ module.exports.Simulator_cars = function (cb){
         car_detail.hour_in = Math.floor(Math.random() * 24) + 1;
         car_detail.hour_out = Math.floor(Math.random() * 24) + 1;
 
+        do{
+            car_detail.out_section = Math.floor(Math.random() * 5) + 1;
+        }while (car_detail.out_section == car_detail.in_section)
+        
         //car and colors
         if (car_detail.car_type === 'car'){
             if (car_detail.color === 'red' || car_detail.color === 'green' ){
@@ -133,3 +139,18 @@ module.exports.Simulator_cars = function (cb){
         // }
     }
 }
+
+function getRandomType () {
+    var num = Math.random(),
+        s = 0,
+        lastIndex = probabilities.length - 1;
+
+    for (var i = 0; i < lastIndex; ++i) {
+        s += probabilities[i];
+        if (num < s) {
+            return car_types[i];
+        }
+    }
+
+    return car_types[lastIndex];
+};
