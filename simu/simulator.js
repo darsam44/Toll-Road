@@ -9,12 +9,12 @@ var car_types = ['car', 'truck' , 'bus' , 'motorcycle'];
 var probabilities = [0.7, 0.1, 0.1, 0.1];
 
 module.exports.simularloop = function(cb){
-    setInterval(function(){ Simulator_cars(cb)},10000)
+    setInterval(function(){ Simulator_cars(cb)},1500)
 }
 
 function Simulator_cars(cb){
 
-    for(var j = 0 ; j < 10 ; j++){
+    // for(var j = 0 ; j < 10 ; j++){
     
         var car_detail = {};
         //brand
@@ -137,7 +137,7 @@ function Simulator_cars(cb){
 
 
         // }
-    }
+    // }
 }
 
 function getRandomType () {

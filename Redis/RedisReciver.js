@@ -2,6 +2,7 @@ var express = require('express');
 var app = require('express')();
 var server = require('http').Server(app);
 var redis = require('redis');
+
 var redisClient = redis.createClient();
 var sub = redis.createClient();
 let num_cars;
@@ -15,8 +16,7 @@ var car_section2 = [];
 var car_section3 = [];
 var car_section4 = [];
 var car_section5 = [];
-
-redisClient.subscribe('message'); 
+var truck ,car ,bus, motor;
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
@@ -158,8 +158,7 @@ function countSections (){
         else if(sec == 2)section2++;
         else if(sec == 3)section3++;
         else if(sec == 4)section4++;
-        else section5++;
-        
+        else section5++;  
     });
 }
 

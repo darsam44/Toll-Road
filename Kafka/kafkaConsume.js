@@ -4,9 +4,25 @@ const uuid = require("uuid");
 const Kafka = require("node-rdkafka");
 // const mongodb = require('mongodb');
 const mongos = require('../mongodb/mongo');
+const bigmlm = require('../bigML/BigML');
 
 var redis = require('../Redis/RedisSender');
 
+//road6
+
+// const kafkaConf = {
+//   "group.id": "cloudkarafka-example",
+//   "metadata.broker.list": "dory-01.srvs.cloudkafka.com:9094,dory-02.srvs.cloudkafka.com:9094,dory-03.srvs.cloudkafka.com:9094".split(","),
+//   "socket.keepalive.enable": true,
+//   "security.protocol": "SASL_SSL",
+//   "sasl.mechanisms": "SCRAM-SHA-256",
+//   "sasl.username": "gh1qkygc",
+//   "sasl.password": "Sc6xr4WIjpqNjxv8SvHZqwrtUiQ0cfOy",
+//   "debug": "generic,broker,security"
+// };
+// const prefix = "gh1qkygc-";
+
+//car6
 const kafkaConf = {
   "group.id": "cloudkarafka-example",
   "metadata.broker.list": "glider-01.srvs.cloudkafka.com:9094,glider-02.srvs.cloudkafka.com:9094,glider-03.srvs.cloudkafka.com:9094".split(","),
@@ -20,18 +36,9 @@ const kafkaConf = {
 
 const prefix = "js9ty9ln-";
 
-// const kafkaConf = {
-//   "group.id": "cloudkarafka-example",
-//   "metadata.broker.list": "dory-01.srvs.cloudkafka.com:9094,dory-02.srvs.cloudkafka.com:9094,dory-03.srvs.cloudkafka.com:9094".split(","),
-//   "socket.keepalive.enable": true,
-//   "security.protocol": "SASL_SSL",
-//   "sasl.mechanisms": "SCRAM-SHA-256",
-//   "sasl.username": "gh1qkygc",
-//   "sasl.password": "Sc6xr4WIjpqNjxv8SvHZqwrtUiQ0cfOy",
-//   "debug": "generic,broker,security"
-// };
 
-// const prefix = "gh1qkygc-";
+
+
 const topic = `${prefix}dar`; // send to this topic
 const producer = new Kafka.Producer(kafkaConf);
 
@@ -54,6 +61,7 @@ consumer.on("ready", function(arg) {
 
 consumer.on("data", function(m) {
   console.log(m.value.toString());
+  bigmlm.bigmlprediction(m.value.toString());
   mongos.ConnectTodb(m.value.toString() , 1);
   redis.ReciveData(m.value.toString());
 });

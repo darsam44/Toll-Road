@@ -1,7 +1,7 @@
 (function($) {
     'use strict'; 
     $(function() {
-
+      
     //Revenue Chart
     if ($("#revenue-chart").length) {
         var revenueChartCanvas = $("#revenue-chart").get(0).getContext("2d");
@@ -11,7 +11,7 @@
             data: {
             labels: ['car', 'truck' , 'bus' , 'motorcycle'],
             datasets: [{
-                data: [10, 15,5,6],
+                data: [colorCode.car, 10,15,20],
                 backgroundColor: ["rgba(255, 86, 48, 0.3)", "rgba(255, 86, 48, 0.3)", "rgba(255, 86, 48, 0.3)", "rgb(255, 86, 48, 0.3)"],
                 }
             ]
