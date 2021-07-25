@@ -4,7 +4,6 @@ var server = require('http').createServer(app);
 const io = require("socket.io")(server)
 const port = 3000
 const simu = require('./simu/simulator');
-const mongoConnect = require('./mongodb/mongo');
 const adminRoutes = require('./mongodb/mongofetch');
 const CarsRoutes = require('./routes/cards');
 const KafkaConsumer = require('./Kafka/kafkaConsume');
@@ -22,8 +21,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
 
-app.get('/', (req, res) => res.send("<a href='/bigml'>Send</a> <br/><a href=''>View</a>"));
-app.get('/bigml', (req, res) => res.render('./pages/BigML'));
+// app.get('/', (req, res) => res.send("<a href='/bigml'>Send</a> <br/><a href=''>View</a>"));
+// app.get('/bigml', (req, res) => res.render('./pages/BigML'));
 app.use(CarsRoutes);
 
 //{title:card.section},{Number_of_cars:card.Number_of_cars},{Precent_of_cars:card.Precent_of_cars}

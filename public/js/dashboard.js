@@ -11,7 +11,7 @@
             data: {
             labels: ['car', 'truck' , 'bus' , 'motorcycle'],
             datasets: [{
-                data: [colorCode.car, 10,15,20],
+                data: [5, 10,15,20],
                 backgroundColor: ["rgba(255, 86, 48, 0.3)", "rgba(255, 86, 48, 0.3)", "rgba(255, 86, 48, 0.3)", "rgb(255, 86, 48, 0.3)"],
                 }
             ]

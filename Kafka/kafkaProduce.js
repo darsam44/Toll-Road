@@ -18,19 +18,35 @@ var redis = require('../Redis/RedisSender');
 
 // const prefix = "gh1qkygc-";
 
+//car 6
+// const kafkaConf = {
+//   "group.id": "cloudkarafka-example",
+//   "metadata.broker.list": "glider-01.srvs.cloudkafka.com:9094,glider-02.srvs.cloudkafka.com:9094,glider-03.srvs.cloudkafka.com:9094".split(","),
+//   "socket.keepalive.enable": true,
+//   "security.protocol": "SASL_SSL",
+//   "sasl.mechanisms": "SCRAM-SHA-256",
+//   "sasl.username": "js9ty9ln",
+//   "sasl.password": "n3jmymvhIGE-uDgJRGei0rMEUz5yk9x6",
+//   "debug": "generic,broker,security"
+// };
+
+// const prefix = "js9ty9ln-";
+
+//ROAD6
 const kafkaConf = {
   "group.id": "cloudkarafka-example",
-  "metadata.broker.list": "glider-01.srvs.cloudkafka.com:9094,glider-02.srvs.cloudkafka.com:9094,glider-03.srvs.cloudkafka.com:9094".split(","),
+  "metadata.broker.list": "dory-01.srvs.cloudkafka.com:9094,dory-02.srvs.cloudkafka.com:9094,dory-01.srvs.cloudkafka.com:9094".split(","),
   "socket.keepalive.enable": true,
   "security.protocol": "SASL_SSL",
   "sasl.mechanisms": "SCRAM-SHA-256",
-  "sasl.username": "js9ty9ln",
-  "sasl.password": "n3jmymvhIGE-uDgJRGei0rMEUz5yk9x6",
+  "sasl.username": "6k4q1urw",
+  "sasl.password": "tZPUr00GrIrA3mzh9M9TWX9m_VjJ-Png",
   "debug": "generic,broker,security"
 };
 
-const prefix = "js9ty9ln-";
-const topic = `${prefix}dar`; // send to this topic
+const prefix = "6k4q1urw-";
+
+const topic = `${prefix}new`; // send to this topic
 const producer = new Kafka.Producer(kafkaConf);
 
 const genMessage = m => new Buffer.alloc(m.length,m);

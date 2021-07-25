@@ -1,9 +1,12 @@
 const path = require('path');
-const RedisR = require('../Redis/RedisReciver');
 const express = require('express');
 const router = express.Router();
+const RedisR = require('../Redis/RedisReciver');
+const bigmlm = require('../bigML/BigML');
 
-router.get('/dashboard', RedisR.getcars);
+router.get('/', RedisR.getcars);
+router.get('/bigml', bigmlm.showMatrix );
+
 
 
 module.exports = router;

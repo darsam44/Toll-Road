@@ -18,6 +18,9 @@ var car_section4 = [];
 var car_section5 = [];
 var truck ,car ,bus, motor;
 
+
+redisClient.subscribe('message'); 
+
 app.get('/', (req, res) => res.send('Hello World!'))
 
 // catch 404 and forward to error handler
@@ -39,10 +42,10 @@ app.use(function(err, req, res, next) {
 
 redisClient.on("message", function (channel, data) {
     var values = new Map();
-
+    // console.log("got into message");
    
     let jsonObject = JSON.parse(data);
-    // var values = [];
+
     values.set("brand", jsonObject.brand);
     values.set("color", jsonObject.color);
     values.set("car_type", jsonObject.car_type);

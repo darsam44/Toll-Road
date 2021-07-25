@@ -4,47 +4,71 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Refresh" content="7">
     <title>BigML</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="./vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="./vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="./vendors/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="./vendors/jvectormap/jquery-jvectormap.css">
+    <!-- End plugin css for this page -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="./css/demo/style.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="./images/favicon.png" />
 </head>
 <body>
-    <h1 style="text-align:center;margin-right: 100px;" >This Is BigML Table</h1>
-    
-    <table border="2" cellpadding="5" cellspacing="5" style="border-collapse: collapse;margin-right: 50%;padding-right: 0px;padding-left: 0px;margin-left: 500px;margin-top: 100px;" width="400">
+    <script src="./js/preloader.js"></script>
+    <div class="body-wrapper">
+
+        <!-- partial:partials/_sidebar.html -->
+        <aside class="mdc-drawer mdc-drawer--dismissible mdc-drawer--open">
+          <div class="mdc-drawer__header">
+            <a href="index.html" class="brand-logo">
+              <img src="./images/logo.svg" alt="logo">
+            </a>
+          </div>
+          <div class="mdc-drawer__content">
+            <div class="user-info">
+              <p class="name">Dar Sambrano</p>
+              <p class="email">darsam44@gmail.com</p>
+              <p class="name">Avital Pikovsky</p>
+              <p class="email">avitalpikovsky@gmail.com</p>
+            </div>
+             <div class="mdc-list-group">
+              <nav class="mdc-list mdc-drawer-menu">
+                <div class="mdc-list-item mdc-drawer-item">
+                  <a class="mdc-drawer-link" href="/">
+                    <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">home</i>
+                    Dashboard
+                  </a>
+                </div>
+                <div class="mdc-list-item mdc-drawer-item">
+                  <a class="mdc-drawer-link" href="/bigml">
+                    <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">track_changes</i>
+                    BigML
+                  </a>
+                </div>
+            </div>
+        </aside>
+
+    <table border="2" cellpadding="5" cellspacing="5" style="border-collapse: collapse;margin-right: 50%;padding-right: 0px;padding-left: 0px;margin-left:500px;margin-top: 20px;" width="500">
+      <h2 style="text-align:center;padding-left: 100px;padding-top: 10px;" >BigML Table</h2>
+      <h3 style="text-align:center;padding-left: 100px;padding-top: 10px;" >Prediction out section</h3>
+      <h3 style="text-align:center;overflow: hidden;position: absolute;padding-left: 280px;padding-top: 180px;" >Actual out section</h3>
+
+      <% for (var i = 0; i < mat.mat_bigMl.length; i++) {%>
         <tr>
-            <td height="19" width="20%" style="text-align:center">1</td>
-            <td height="19" width="20%" style="text-align:center">2</td>
-            <td height="19" width="20%" style="text-align:center">3</td>
-            <td height="19" width="20%" style="text-align:center">4</td>
-            <td height="16" width="20%" style="text-align:center">5</td>
-        </tr>
-        <tr>
-            <td height="16" width="20%" style="text-align:center">2</td>
-            <td height="16" width="20%" style="text-align:center">&nbsp;</td>
-            <td height="16" width="20%" style="text-align:center">&nbsp;</td>
-            <td height="16" width="20%" style="text-align:center">&nbsp;</td>
-            <td height="16" width="20%" style="text-align:center">&nbsp;</td>
-        </tr>
-        <tr>
-            <td height="19" width="20%" style="text-align:center">3</td>
-            <td height="19" width="20%" style="text-align:center">&nbsp;</td>
-            <td height="19" width="20%" style="text-align:center">&nbsp;</td>
-            <td height="19" width="20%" style="text-align:center">&nbsp;</td>
-            <td height="19" width="20%" style="text-align:center">&nbsp;</td>
-        </tr>
-        <tr>
-            <td height="19" width="20%" style="text-align:center">4</td>
-            <td height="19" width="20%" style="text-align:center">&nbsp;</td>
-            <td height="19" width="20%" style="text-align:center">&nbsp;</td>
-            <td height="19" width="20%" style="text-align:center">&nbsp;</td>
-            <td height="19" width="20%" style="text-align:center">&nbsp;</td>
-        </tr>
-        <tr>
-            <td height="19" width="20%" style="text-align:center">5</td>
-            <td height="19" width="20%" style="text-align:center">&nbsp;</td>
-            <td height="19" width="20%" style="text-align:center">&nbsp;</td>
-            <td height="19" width="20%" style="text-align:center">&nbsp;</td>
-            <td height="19" width="20%" style="text-align:center">&nbsp;</td>
-        </tr>
+        <% for (var j = 0; j < mat.mat_bigMl[0].length; j++) {%>
+      
+            <td height="50" width="16.666%" style="text-align:center"><%= mat.mat_bigMl[i][j]%></td>
+            <% } %>
+          </tr>
+          
+          <% } %>
         </table>
+        <h3 style="text-align:center;padding-left: 100px;padding-top: 10px;" >Accurency: <%= mat.accurency %></h3>
 </body>
 </html>
