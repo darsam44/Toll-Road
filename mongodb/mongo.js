@@ -5,7 +5,7 @@ var parse = require('csv-parse');
 
 let _dbo;
 
-
+// this function connect to the data base and upload(1) or fetch(2) the data
  module.exports.ConnectTodb =  function(data , n){
     const car = JSON.parse(data);
     MongoClient.connect(uri,{ useNewUrlParser: true, useUnifiedTopology: true } ,function(err, db) {
@@ -14,7 +14,6 @@ let _dbo;
         if (n == 1)
         _dbo.collection("cars").insertOne(car, function(err, res) {
           if (err) throw err;
-          // console.log("1 document inserted");
           db.close();
         });
         else{
@@ -22,8 +21,6 @@ let _dbo;
           .find()
           .toArray()
           .then(products => {
-            // console.log("fetch all mongo");
-           
             convertJSONtocsv(products); 
              console.log("checnge csv");
             return products;

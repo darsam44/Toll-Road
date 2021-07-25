@@ -1,14 +1,13 @@
-// https://www.cloudkarafka.com/ הפעלת קפקא במסגרת ספק זה
+// https://www.cloudkarafka.com/ 
 
 const uuid = require("uuid");
 const Kafka = require("node-rdkafka");
-// const mongodb = require('mongodb');
 const mongos = require('../mongodb/mongo');
 const bigmlm = require('../bigML/BigML');
 var redis = require('../Redis/RedisSender');
 
+//------------ kafka detials to connection------------
 //road6
-
 // const kafkaConf = {
 //   "group.id": "cloudkarafka-example",
 //   "metadata.broker.list": "dory-01.srvs.cloudkafka.com:9094,dory-02.srvs.cloudkafka.com:9094,dory-03.srvs.cloudkafka.com:9094".split(","),
@@ -32,7 +31,6 @@ var redis = require('../Redis/RedisSender');
 //   "sasl.password": "n3jmymvhIGE-uDgJRGei0rMEUz5yk9x6",
 //   "debug": "generic,broker,security"
 // };
-
 // const prefix = "js9ty9ln-";
 
 //ROAD6
@@ -46,7 +44,6 @@ const kafkaConf = {
   "sasl.password": "tZPUr00GrIrA3mzh9M9TWX9m_VjJ-Png",
   "debug": "generic,broker,security"
 };
-
 const prefix = "6k4q1urw-";
 
 
@@ -54,7 +51,6 @@ const topic = `${prefix}new`; // send to this topic
 const producer = new Kafka.Producer(kafkaConf);
 
 const genMessage = m => new Buffer.alloc(m.length,m);
-//const prefix = process.env.CLOUDKARAFKA_USERNAME;
 
 const topics = [topic];
 const consumer = new Kafka.KafkaConsumer(kafkaConf, {
@@ -70,11 +66,10 @@ consumer.on("ready", function(arg) {
   consumer.consume();
 });
 
+// when the consume read new data this function start 
 consumer.on("data", function(m) {
-  // console.log(m.value.toString());
-  console.log("i am here");
   bigmlm.bigmlprediction(m.value.toString());
-  mongos.ConnectTodb(m.value.toString() , 1);
+  mongos.ConnectTodb(m.value.toString() , 1); // 1 say to uplaod data to mongodb
   redis.ReciveData(m.value.toString());
 });
 

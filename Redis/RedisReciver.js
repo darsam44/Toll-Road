@@ -5,8 +5,7 @@ var redis = require('redis');
 
 var redisClient = redis.createClient();
 var sub = redis.createClient();
-let num_cars;
-let ima_shelo;
+
 var allMap  = new Map();
 var car_number =0;
 var section1=0 , section2=0, section3=0, section4=0, section5=0; 
@@ -16,12 +15,9 @@ var car_section2 = [];
 var car_section3 = [];
 var car_section4 = [];
 var car_section5 = [];
-var truck ,car ,bus, motor;
 
 
 redisClient.subscribe('message'); 
-
-app.get('/', (req, res) => res.send('Hello World!'))
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -39,10 +35,10 @@ app.use(function(err, req, res, next) {
     });
 });
 
-
+//getting the data from redis and insert into map
 redisClient.on("message", function (channel, data) {
+    console.log("got data");
     var values = new Map();
-    // console.log("got into message");
    
     let jsonObject = JSON.parse(data);
 
@@ -59,12 +55,10 @@ redisClient.on("message", function (channel, data) {
     values.set("hour_out", jsonObject.hour_out);
 
     allMap.set(car_number, values);
-    car_number++;
-    
-    // console.log(allMap.get(1).get("brand"));
-    
+    car_number++; 
 });
 
+// when we get into dashboard this function is called and send the cars and the data to the dashboard
 exports.getcars = (req, res, next) => {
     countSections();
     sumBrand();
@@ -73,16 +67,6 @@ exports.getcars = (req, res, next) => {
 
     var Allsections = section1+ section2+ section3+section4+section5;
     var AllBrands = Audi+ BMW+Ford+Honda+Reno+Toyota+Lamborghini+Maserati;
-    // console.log("car_section1")
-    // console.log(car_section1);
-    // console.log("car_section2")
-    // console.log(car_section2);
-    // console.log("car_section3")
-    // console.log(car_section3);
-    // console.log("car_section4")
-    // console.log(car_section4);
-    // console.log("car_section5")
-    // console.log(car_section5);
 
     const brands=[
         {brand_name: 'Audi', Number_of_cars: Audi , Precent_of_cars: (Audi/AllBrands)*100 },
@@ -103,6 +87,7 @@ exports.getcars = (req, res, next) => {
         res.render('./pages/index',{all: {cards , brands}} );
 };
 
+// check every car wich section he right now 
 function checksections(){
 car_section1 = [];
 car_section2 = [];
@@ -116,7 +101,6 @@ car_section5 = [];
         var color = car.get("color");
         var type = car.get("car_type");
         if (sec == 1) {
-            
             car_section1.push({brand: brand , color:color , type:type});
         }
         else if(sec == 2){
@@ -133,6 +117,8 @@ car_section5 = [];
         }
     });
 }
+
+//  move the car forward to the out sections
 function changenow(){
     allMap.forEach((car,key) => {
         var now_sec = car.get("now_section");
@@ -156,7 +142,6 @@ function countSections (){
     allMap.forEach(car => {
         var sec = car.get("now_section");
        
-        //console.log(car.get("now_section"));
         if (sec == 1) section1++;
         else if(sec == 2)section2++;
         else if(sec == 3)section3++;

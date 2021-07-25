@@ -9,6 +9,9 @@ var connection = new bigml.BigML('AvitalPikovsky',
 var source = new bigml.Source(connection);
 var flag = false;
 var queue  =[];
+
+// create new model from csv
+
 // source.create('./bigML/cars.csv', function(error, sourceInfo) {
 //     if (!error && sourceInfo) {
 //       var dataset = new bigml.Dataset(connection);
@@ -30,26 +33,18 @@ var queue  =[];
 //     }
 //   });
 
+// get car data and insert into queue
 module.exports.bigmlprediction = (data)=>{
     
     let car = JSON.parse(data);
     queue.push(car);
-    console.log(queue);
-    // console.log(car)
-    // console.log(mat_bigMl);
-    // console.log("car out: " + car.out_section)
-    // console.log("car brand: " + car.brand)
-    // console.log("car_type: " + car.car_type)
-    // console.log("car color: " + car.color)
-    if (flag  === false){
+    if (flag  === false){ //check if the function finish to predict and then get in to check onther car
         flag = true;
         predictonecar(queue.shift());
-    
     }  
 }
-  
+  //make prediction on one car.
 function predictonecar(car){
-    // let car = JSON.parse(data);
     var j = car.out_section;
     const localModel = new bigml.LocalModel('model/60fd4bef47d77512a70c996f', connection);
     localModel.predict(
@@ -60,13 +55,7 @@ function predictonecar(car){
     "week_day":car.week_day,
     "special_day":car.special_day},
         function(error, prediction) {
-            // let pred = JSON.parse(prediction);
-            // console.log("here: "+ pred)
-            // console.log(j);
-            console.log(prediction.prediction);
-            console.log("the prediction is: " + prediction.prediction + " " + Math.round(prediction.prediction))  
             var i = Math.round(prediction.prediction)
-            // console.log(mat_bigMl[i][j]);
             if (i < 6){
                 denominator++;
                 mat_bigMl[i][j]++;
@@ -75,10 +64,10 @@ function predictonecar(car){
                 }
             }
         });
-        // console.log(mat_bigMl);
         flag = false;
 }
 
+// send the matrix to bigml page
 exports.showMatrix = (req ,res ,error ) => {
  var accurency = (counter/denominator);
 
