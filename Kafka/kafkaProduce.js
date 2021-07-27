@@ -45,7 +45,7 @@ const prefix = "js9ty9ln-";
 // };
 // const prefix = "6k4q1urw-";
 
-const topic = `${prefix}new`; 
+const topic = `${prefix}dar`; 
 const producer = new Kafka.Producer(kafkaConf);
 
 const genMessage = m => new Buffer.alloc(m.length,m);

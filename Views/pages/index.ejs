@@ -22,35 +22,32 @@
 <body>
 <script src="./js/preloader.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
 <script type="text/javascript">
-  // Load google charts
-  google.charts.load('current', {'packages':['corechart']});
-  google.charts.setOnLoadCallback(drawChart);
+  window.onload = function () {
   
-
-  var bus , number_buses=0;
-    var car , number_cars=0;
-    var truck, number_trucks=0;
-    var motor , number_motors=0;
-    
-
-  // Draw the chart and set the chart values
-  function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-    ['Task', 'Hours per Day'],
-    ['<%=all.vehicles[0].name%>', parseInt('<%=all.vehicles[0].number%>', 10)],
-    ['<%=all.vehicles[1].name%>', parseInt('<%=all.vehicles[1].number%>', 10)],
-    ['<%=all.vehicles[2].name%>', parseInt('<%=all.vehicles[2].number%>', 10)],
-    ['<%=all.vehicles[3].name%>', parseInt('<%=all.vehicles[3].number%>', 10)],
-  ]);
-  
-    // Optional; add a title and set the width and height of the chart
-    var options = {'title':'Average Cars on the road - by car type', 'width':550, 'height':400};
-  
-    // Display the chart inside the <div> element with id="piechart"
-    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-    chart.draw(data, options);
+  var chart = new CanvasJS.Chart("chartContainer", {
+    theme: "light1", // "light2", "dark1", "dark2"
+    animationEnabled: false, // change to true		
+    title:{
+      text: "Count of vehicles evry day"
+    },
+    data: [
+    {
+      // Change type to "bar", "area", "spline", "pie",etc.
+      type: "column",
+      dataPoints: [
+        { label: "Sunday",  y: parseInt('<%=all.Days[0].day%>', 10)  },
+        { label: "Monday", y: parseInt('<%=all.Days[1].day%>', 10)  },
+        { label: "Tuesday", y: parseInt('<%=all.Days[2].day%>', 10)  },
+        { label: "Wednesday",  y: parseInt('<%=all.Days[3].day%>', 10)  },
+        { label: "Thursday",  y: parseInt('<%=all.Days[4].day%>', 10)  },
+        { label: "Friday",  y: parseInt('<%=all.Days[5].day%>', 10)  },
+        { label: "Saturday",  y: parseInt('<%=all.Days[6].day%>', 10)  }
+      ]
+    }
+    ]
+  });
+  chart.render();
   }
   </script>
   
@@ -232,7 +229,7 @@
                   <!-- <span class="figure">
                     <img src="./images/faces/face1.jpg" alt="user" class="user">
                   </span> -->
-                  <span class="user-name">Avital Pikovsky</span>
+                  <span class="user-name">Dar Sambrano</span>
                 </span>
               </button>
               <div class="mdc-menu mdc-menu-surface" tabindex="-1">
@@ -464,151 +461,18 @@
                   </div>
                 </div> 
               </div>
-              <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop mdc-layout-grid__cell--span-4-tablet">
-                <div class="mdc-card bg-success text-white">
-                  <div class="d-flex justify-content-between">
-                    <h3 class="font-weight-normal">Impressions</h3>
-                    <i class="material-icons options-icon text-white">more_vert</i>
-                  </div>
-                  <div class="mdc-layout-grid__inner align-items-center">
-                    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-4-desktop mdc-layout-grid__cell--span-3-tablet mdc-layout-grid__cell--span-2-phone">
-                      <div>
-                        <h5 class="font-weight-normal mt-2">Customers 58.39k</h5>
-                        <h2 class="font-weight-normal mt-3 mb-0">636,757K</h2>
-                      </div>
-                    </div>
-                    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-8-desktop mdc-layout-grid__cell--span-5-tablet mdc-layout-grid__cell--span-2-phone">
-                      <canvas id="impressions-chart" height="80"></canvas>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop mdc-layout-grid__cell--span-4-tablet">
-                <div class="mdc-card bg-info text-white">
-                    <div class="d-flex justify-content-between">
-                      <h3 class="font-weight-normal">Traffic</h3>
-                      <i class="material-icons options-icon text-white">more_vert</i>
-                    </div>
-                    <div class="mdc-layout-grid__inner align-items-center">
-                      <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-4-desktop mdc-layout-grid__cell--span-3-tablet mdc-layout-grid__cell--span-2-phone">
-                        <div>
-                          <h5 class="font-weight-normal mt-2">Customers 58.39k</h5>
-                          <h2 class="font-weight-normal mt-3 mb-0">636,757K</h2>
-                        </div>
-                      </div>
-                      <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-8-desktop mdc-layout-grid__cell--span-5-tablet mdc-layout-grid__cell--span-2-phone">
-                        <canvas id="traffic-chart" height="80"></canvas>
-                      </div>
-                    </div>
-                </div>
-              </div>
-              <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-8">
-                <div class="mdc-card">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <h4 class="card-title mb-2 mb-sm-0">Cars on the road - by car type</h4>
-                    <div class="d-flex justtify-content-between align-items-center">
-                      <i class="material-icons options-icon">more_vert</i>
-                    </div>
-                  </div>
-                  <div class="d-block d-sm-flex justify-content-between align-items-center">
-                    <h6 class="card-sub-title mb-0">Sales performance revenue based by country</h6>
-                    <div class="mdc-tab-wrapper revenue-tab mdc-tab--secondary"> 
-                      <div class="mdc-tab-bar" role="tablist">
-                        <div class="mdc-tab-scroller">
-                          <div class="mdc-tab-scroller__scroll-area">
-                            <div class="mdc-tab-scroller__scroll-content">
-                              <!-- <button class="mdc-tab mdc-tab--active" role="tab" aria-selected="true" tabindex="0">
-                                <span class="mdc-tab__content">
-                                  <span class="mdc-tab__text-label">1W</span>
-                                </span>
-                                <span class="mdc-tab-indicator mdc-tab-indicator--active">
-                                  <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-                                </span>
-                                <span class="mdc-tab__ripple"></span>
-                              </button> -->
-                              <!-- <button class="mdc-tab mdc-tab" role="tab" aria-selected="true" tabindex="0">
-                                <span class="mdc-tab__content">
-                                  <span class="mdc-tab__text-label">1M</span>
-                                </span>
-                                <span class="mdc-tab-indicator mdc-tab-indicator">
-                                  <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-                                </span>
-                                <span class="mdc-tab__ripple"></span>
-                              </button>
-                              <button class="mdc-tab mdc-tab" role="tab" aria-selected="true" tabindex="0">
-                                <span class="mdc-tab__content">
-                                  <span class="mdc-tab__text-label">3M</span>
-                                </span>
-                                <span class="mdc-tab-indicator mdc-tab-indicator">
-                                  <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-                                </span>
-                                <span class="mdc-tab__ripple"></span>
-                              </button>
-                              <button class="mdc-tab mdc-tab" role="tab" aria-selected="true" tabindex="0">
-                                <span class="mdc-tab__content">
-                                  <span class="mdc-tab__text-label">1Y</span>
-                                </span>
-                                <span class="mdc-tab-indicator mdc-tab-indicator">
-                                  <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-                                </span>
-                                <span class="mdc-tab__ripple"></span>
-                              </button>
-                              <button class="mdc-tab mdc-tab" role="tab" aria-selected="true" tabindex="0">
-                                <span class="mdc-tab__content">
-                                  <span class="mdc-tab__text-label">ALL</span>
-                                </span>
-                                <span class="mdc-tab-indicator mdc-tab-indicator">
-                                  <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-                                </span>
-                                <span class="mdc-tab__ripple"></span>
-                              </button> -->
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="content content--active">    
-                      </div>
-                      <div class="content">
-                      </div>
-                      <div class="content">    
-                      </div>
-                      <div class="content">
-                      </div>
-                      <div class="content">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="chart-container mt-4">
-                    <canvas id="revenue-chart" height="260"></canvas>
-                  </div>
-                </div>
-              </div>
-              <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-4 mdc-layout-grid__cell--span-8-tablet">
-                <div class="mdc-card">
-                  <div class="d-flex d-lg-block d-xl-flex justify-content-between">
-                    <div>
-                      <h4 class="card-title">Order Statistics</h4>
-                      <h6 class="card-sub-title">Customers 58.39k</h6>
-                    </div>
-                    <div id="sales-legend" class="d-flex flex-wrap"></div>
-                  </div>
-                  <div class="chart-container mt-4">
-                    <canvas id="chart-sales" height="260"></canvas>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+              <div id="chartContainer" style="width: 800px;"></div>
+              
         </main>
         <!-- partial:partials/_footer.html -->
         <footer>
           <div class="mdc-layout-grid">
             <div class="mdc-layout-grid__inner">
               <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop">
-                <span class="text-center text-sm-left d-block d-sm-inline-block tx-14">Copyright © <a href="https://www.bootstrapdash.com/" target="_blank">bootstrapdash.com </a>2020</span>
+                <!-- <span class="text-center text-sm-left d-block d-sm-inline-block tx-14">Copyright © <a href="https://www.bootstrapdash.com/" target="_blank">bootstrapdash.com </a>2020</span> -->
               </div>
               <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop d-flex justify-content-end">
-                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center tx-14">Free <a href="https://www.bootstrapdash.com/material-design-dashboard/" target="_blank"> material admin </a> dashboards from Bootstrapdash.com</span>
+                <!-- <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center tx-14">Free <a href="https://www.bootstrapdash.com/material-design-dashboard/" target="_blank"> material admin </a> dashboards from Bootstrapdash.com</span> -->
               </div>
             </div>
           </div>
@@ -618,8 +482,38 @@
     </div>
   </div>
 
+  <script type="text/javascript">
+    // Load google charts
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    
+  
+    var bus , number_buses=0;
+      var car , number_cars=0;
+      var truck, number_trucks=0;
+      var motor , number_motors=0;
+      
+  
+    // Draw the chart and set the chart values
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+      ['Task', 'Hours per Day'],
+      ['<%=all.vehicles[0].name%>', parseInt('<%=all.vehicles[0].number%>', 10)],
+      ['<%=all.vehicles[1].name%>', parseInt('<%=all.vehicles[1].number%>', 10)],
+      ['<%=all.vehicles[2].name%>', parseInt('<%=all.vehicles[2].number%>', 10)],
+      ['<%=all.vehicles[3].name%>', parseInt('<%=all.vehicles[3].number%>', 10)],
+    ]);
+    
+      // Optional; add a title and set the width and height of the chart
+      var options = {'title':'Average Cars on the road - by car type', 'width':550, 'height':400};
+    
+      // Display the chart inside the <div> element with id="piechart"
+      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+      chart.draw(data, options);
+    }
+    </script>
 
-
+  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
   <!-- plugins:js -->
   <script src="./vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->

@@ -17,6 +17,7 @@ var car_section4 = [];
 var car_section5 = [];
 
 var cars=0, truck =0, bus =0 , motorcycle=0;
+var Sunday=0, Monday=0,Tuesday=0,Wednesday=0,Thursday=0,Friday=0,Saturday=0;
 
 
 redisClient.subscribe('message'); 
@@ -67,6 +68,7 @@ exports.getcars = (req, res, next) => {
     checksections();
     changenow();
     checkCountvehicles();
+    checkDays();
 
     var Allsections = section1+ section2+ section3+section4+section5;
     var AllBrands = Audi+ BMW+Ford+Honda+Reno+Toyota+Lamborghini+Maserati;
@@ -90,10 +92,41 @@ exports.getcars = (req, res, next) => {
                      {name: "bus" , number:bus},
                      {name: "truck" , number:truck},
                      {name: "motorcycle" ,number:motorcycle }];
+    const Days =[{day:Sunday},
+                 {day:Monday},
+                 {day:Tuesday},
+                 {day:Wednesday},
+                 {day:Thursday},
+                 {day:Friday},
+                 {day:Saturday},];
 
-        res.render('./pages/index',{all: {cards , brands , vehicles}} );
+        res.render('./pages/index',{all: {cards , brands , vehicles, Days}} );
 };
 
+function checkDays(){
+    allMap.forEach(car => {
+    var day = car.get("week_day");
+    switch(day){
+        case 1: Sunday++;
+        break;
+        case 2: Monday++;
+        break;
+        case 3: Tuesday++;
+        break;
+        case 4: Wednesday++;
+        break;
+        case 5: Thursday++;
+        break;
+        case 6: Friday++;
+        break;
+        case 7: Saturday++;
+        break;
+        default: break;
+    }
+    
+    
+    });
+}
 
 function checkCountvehicles(){
     cars=0;
