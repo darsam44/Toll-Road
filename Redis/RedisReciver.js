@@ -16,6 +16,8 @@ var car_section3 = [];
 var car_section4 = [];
 var car_section5 = [];
 
+var cars=0, truck =0, bus =0 , motorcycle=0;
+
 
 redisClient.subscribe('message'); 
 
@@ -64,6 +66,7 @@ exports.getcars = (req, res, next) => {
     sumBrand();
     checksections();
     changenow();
+    checkCountvehicles();
 
     var Allsections = section1+ section2+ section3+section4+section5;
     var AllBrands = Audi+ BMW+Ford+Honda+Reno+Toyota+Lamborghini+Maserati;
@@ -83,9 +86,36 @@ exports.getcars = (req, res, next) => {
         {section: "section 3", Number_of_cars: section3 , Precent_of_cars: (section3/Allsections)*100 , car_section:car_section3},
         {section: "section 4", Number_of_cars: section4 ,Precent_of_cars: (section4/Allsections)*100 , car_section:car_section4},
         {section: "section 5", Number_of_cars: section5 , Precent_of_cars: (section5/Allsections)*100 , car_section:car_section5}];
-  
-        res.render('./pages/index',{all: {cards , brands}} );
+    const vehicles =[{name: "car" , number:cars},
+                     {name: "bus" , number:bus},
+                     {name: "truck" , number:truck},
+                     {name: "motorcycle" ,number:motorcycle }];
+
+        res.render('./pages/index',{all: {cards , brands , vehicles}} );
 };
+
+
+function checkCountvehicles(){
+    cars=0;
+    bus =0;
+    truck =0;
+    motorcycle=0;
+    allMap.forEach(car => {
+        var type = car.get("car_type");
+        switch(type){
+            case 'car': cars++;
+            break;
+            case 'bus': bus++;
+            break;
+            case 'truck': truck++;
+            break;
+            case 'motorcycle': motorcycle++;
+            break;
+            default: break;
+        }
+    });
+}
+
 
 // check every car wich section he right now 
 function checksections(){

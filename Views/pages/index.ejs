@@ -21,8 +21,39 @@
 </head>
 <body>
 <script src="./js/preloader.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
+<script type="text/javascript">
+  // Load google charts
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+  
 
+  var bus , number_buses=0;
+    var car , number_cars=0;
+    var truck, number_trucks=0;
+    var motor , number_motors=0;
+    
+
+  // Draw the chart and set the chart values
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+    ['Task', 'Hours per Day'],
+    ['<%=all.vehicles[0].name%>', parseInt('<%=all.vehicles[0].number%>', 10)],
+    ['<%=all.vehicles[1].name%>', parseInt('<%=all.vehicles[1].number%>', 10)],
+    ['<%=all.vehicles[2].name%>', parseInt('<%=all.vehicles[2].number%>', 10)],
+    ['<%=all.vehicles[3].name%>', parseInt('<%=all.vehicles[3].number%>', 10)],
+  ]);
+  
+    // Optional; add a title and set the width and height of the chart
+    var options = {'title':'Average Cars on the road - by car type', 'width':550, 'height':400};
+  
+    // Display the chart inside the <div> element with id="piechart"
+    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+    chart.draw(data, options);
+  }
+  </script>
+  
   <div class="body-wrapper">
 
     <!-- partial:partials/_sidebar.html -->
@@ -427,7 +458,8 @@
                         </div>
                     </div>
                     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 mdc-layout-grid__cell--span-8-tablet"> 
-                      <div id="revenue-map" class="revenue-world-map"></div>
+                      <!-- <div id="revenue-map" class="revenue-world-map"></div> -->
+                      <div id="piechart"></div>
                     </div>
                   </div>
                 </div> 
