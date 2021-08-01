@@ -1,5 +1,13 @@
 • The system will enable the management of sections of the toll road, 5 sections in which vehicles enter and exit regularly.
 
+To run the program on the localhost in Windows:
+
+1. install npm.
+2. install from [redis site](https://hub.docker.com/_/redis) the redis image.
+3. run Redis image on Docker with the 6379 port.
+4. run command `$ node app.js` or `$ npm start` in the program terminal.
+5. go to http://localhost:3000 and have fun 😊🚗
+
 We built a simulator that simulates a toll road with details of vehicles that enter and exit the road,
 such as: entrance section, type of vehicle, day of the week, etc ..
 
