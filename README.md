@@ -22,15 +22,19 @@ http://localhost:3000/fetch will be create a new csv file for a new model.
 
 • At any moment you can know the number of vehicles in each section.
 
-![image](https://user-images.githubusercontent.com/57085913/126947973-1d57ca01-e64f-44ab-9101-b21ce42028c5.png)
+![image](https://user-images.githubusercontent.com/57678898/127770340-7228ce92-897c-4c78-b73d-86dba9fed0cf.png)
 
 • The system display on a dashboard the current number of vehicles and will allow you to request a breakdown of the list of vehicles.
 
-![image](https://user-images.githubusercontent.com/57085913/126953587-dd8c029b-b1d2-4352-99d0-996ab44a7c4c.png)
+![image](https://user-images.githubusercontent.com/57678898/127770379-1fe4a75d-3ad3-4dc8-8a64-dea856a6ec40.png)
 
 • There is also an option to see how many vehicles there are on the road by brands at any given moment.
 
-![image](https://user-images.githubusercontent.com/57085913/126948185-9001fc64-7879-41bf-be0f-b3bae3446ced.png)
+![image](https://user-images.githubusercontent.com/57678898/127770415-2353ce95-f3ee-44cb-9285-6e9343d6c1bb.png)
+
+• There is also an option to see how many vehicles there are on the road by types and days at any given moment.
+
+![image](https://user-images.githubusercontent.com/57678898/127770455-f8c7a6c5-4f3f-48e4-9895-288f3e878720.png)
 
 • Kafka (example):
 
