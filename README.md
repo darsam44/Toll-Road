@@ -9,6 +9,7 @@ When the Redis shows us the vehicles that are in real time on the road and their
 In the dashboard we will display the information taken from the Redis that run on the Docker.
 
 The data from MongoDB will be taken and saved in a csv file that will be sent to bigML which we will use to create a learning model which will give us the prediction of the exit section of each vehicle.
+http://localhost:3000/fetch will be create a new csv file for a new model.
 
 • At any moment you can know the number of vehicles in each section.
 
