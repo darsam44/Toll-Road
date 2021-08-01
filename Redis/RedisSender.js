@@ -8,9 +8,8 @@ var sub = redis.createClient();
 module.exports.ReciveData = function(data){
     const cars = JSON.parse(data);
 
-    redisClient.sadd('Cars', cars ,function (err, object){
-
-    });
+    // redisClient.sadd('Cars', cars ,function (err, object){
+    // });
 
     redisClient.publish("message", JSON.stringify(cars), function () {
         console.log('published');

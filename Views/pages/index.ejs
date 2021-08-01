@@ -29,7 +29,7 @@
     theme: "light1", // "light2", "dark1", "dark2"
     animationEnabled: false, // change to true		
     title:{
-      text: "Count of vehicles evry day"
+      text: "Count of vehicles evrey day"
     },
     data: [
     {
@@ -55,11 +55,7 @@
 
     <!-- partial:partials/_sidebar.html -->
     <aside class="mdc-drawer mdc-drawer--dismissible mdc-drawer--open">
-      <div class="mdc-drawer__header">
-        <a href="index.html" class="brand-logo">
-          <img src="./images/logo.svg" alt="logo">
-        </a>
-      </div>
+      <img src="./images/dashboard/cars.png" style = "width: 280px;">
       <div class="mdc-drawer__content">
         <div class="user-info">
           <p class="name">Dar Sambrano</p>
@@ -101,8 +97,9 @@
         <div class="mdc-top-app-bar__row">
           <div class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
             <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button sidebar-toggler">menu</button>
-            <span class="mdc-top-app-bar__title">Welcome to Road 6 click on the section to see the vichelcls</span>
-            
+            <span class="mdc-top-app-bar__title">Welcome to toll road!
+            <h6>Click on the cards to see details</h6>
+          </span>
           </div>
           <div class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end mdc-top-app-bar__section-right">
             <div class="menu-button-container menu-profile d-none d-md-block">
@@ -137,7 +134,7 @@
                     <h4 class="card-title mb-0">Brands</h4>
                   </div>
                   <div class="d-block d-sm-flex justify-content-between align-items-center">
-                      <h5 class="card-sub-title mb-2 mb-sm-0">cars based by brands</h5>
+                      <h5 class="card-sub-title mb-2 mb-sm-0">vehicles based by brands</h5>
                       <div class="menu-button-container">
                         <div class="mdc-menu mdc-menu-surface" tabindex="-1">
                           <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical">
@@ -177,7 +174,7 @@
                   </div>
                 </div> 
               </div>
-              <div id="chartContainer" style="width: 800px;"></div>
+              <div id="chartContainer" style="width: 1150px;"></div>
               
         </main>
         <!-- partial:partials/_footer.html -->
@@ -221,7 +218,7 @@
     ]);
     
       // Optional; add a title and set the width and height of the chart
-      var options = {'title':'Average Cars on the road - by car type', 'width':550, 'height':400};
+      var options = {'title':'Average vehicles on the road - by car type', 'width':550, 'height':400};
     
       // Display the chart inside the <div> element with id="piechart"
       var chart = new google.visualization.PieChart(document.getElementById('piechart'));

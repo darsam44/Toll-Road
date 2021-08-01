@@ -1,6 +1,5 @@
 const { all } = require("mathjs");
 
-let cars_now = [];
 var brands = ['Audi', 'BMW', 'Ford', 'Honda', 'Renault', 'Toyota', 'Lamborghini', 'Maserati']; 
 var colors = ['red', 'green', 'blue', 'white', 'black', 'yellow', 'pink'];
 var car_types = ['car', 'truck' , 'bus' , 'motorcycle'];
@@ -10,6 +9,7 @@ module.exports.simularloop = function(cb){
     setInterval(function(){ Simulator_cars(cb)},1500)
 }
 
+// evry vehicle have: brand, color, car_type, in_section, now_section, week_day, special_day, date, hour_in, hour_out,out_section.
 function Simulator_cars(cb){
     
         var car_detail = {};
@@ -85,7 +85,6 @@ function Simulator_cars(cb){
                 break;
             default:   
         }
-        cars_now.push(car_detail);
         cb(car_detail);
 }
 function getRandomType () {

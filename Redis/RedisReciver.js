@@ -100,6 +100,7 @@ exports.getcars = (req, res, next) => {
                  {day:Friday},
                  {day:Saturday},];
 
+        // conntorollers
         res.render('./pages/index',{all: {cards , brands , vehicles, Days}} );
 };
 
