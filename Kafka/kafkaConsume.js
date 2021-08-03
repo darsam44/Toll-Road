@@ -35,7 +35,7 @@ var redis = require('../Redis/RedisSender');
 
 //ROAD6
 const kafkaConf = {
-  "group.id": "cloudkarafka-example",
+  "group.id": "Conume",
   "metadata.broker.list": "dory-01.srvs.cloudkafka.com:9094,dory-02.srvs.cloudkafka.com:9094,dory-01.srvs.cloudkafka.com:9094".split(","),
   "socket.keepalive.enable": true,
   "security.protocol": "SASL_SSL",
@@ -47,7 +47,7 @@ const kafkaConf = {
 const prefix = "6k4q1urw-";
 
 
-const topic = `${prefix}dar`; // send to this topic
+const topic = `${prefix}road`; // send to this topic
 const producer = new Kafka.Producer(kafkaConf);
 
 const genMessage = m => new Buffer.alloc(m.length,m);

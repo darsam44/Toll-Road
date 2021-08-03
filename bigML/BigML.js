@@ -23,9 +23,9 @@ var queue  =[];
 //               var prediction = new bigml.Prediction(connection);
 //               prediction.create(modelInfo,{"":""})
 //               const localmodel = new bigml.LocalModel(prediction.resource, connection );
-//               localmodel.predict({"car_type":"bus" , "color":"black"}, function(error,prediction){
-//                   console.log(prediction.prediction);
-//               })
+              // localmodel.predict({"car_type":"bus" , "color":"black"}, function(error,prediction){
+              //     console.log(prediction.prediction);
+              // })
 //             }
 //           });
 //         }
